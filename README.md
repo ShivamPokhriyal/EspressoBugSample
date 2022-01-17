@@ -1,5 +1,5 @@
 # EspressoBugSample
-Demonstrates bug with espresso viewMatcher `isDisplayed` where it incorrectly expects a view to be visible on the screen when the view is hidden because another view is on top of it. 
+Demonstrates bug with espresso viewMatcher `isDisplayed` where it incorrectly expects a view to be visible on the screen when the view is hidden because another view is on top of it. Issue Link: https://github.com/android/android-test/issues/1242
 
 Here's a screenshot of the screen 
 
