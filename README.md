@@ -3,7 +3,62 @@ Demonstrates bug with espresso viewMatcher `isDisplayed` where it incorrectly ex
 
 Here's a screenshot of the screen 
 
+<img width="363" alt="Screenshot 2022-01-17 at 11 23 47 AM" src="https://user-images.githubusercontent.com/29516995/149716713-0e02da1c-d703-4e62-a6c1-96a32a7067bd.png">
 
+Here's a screenshot of layout inspector:
+<img width="823" alt="Screenshot 2022-01-17 at 11 42 22 AM" src="https://user-images.githubusercontent.com/29516995/149716963-49801bcf-bcfc-4f89-86bb-3edb7049a05d.png">
+ 
+And this is the layout heirarchy: 
+```
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/cover_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#fff"
+        android:layout_gravity="center"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/error_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="btn" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+Notice that LinearLayout is covering the entire screen so the textView is not visible. 
+
+But, when I assert the same in the test: 
+```
+onView(withId(R.id.text_view))
+                .check(matches(not(isDisplayed())))
+```
+it fails and expects that the text_view is displayed on the screen. 
 
 
 # How to run
